@@ -7,9 +7,12 @@ const promise = (
   promiseFactory,
   ...args
 ) => {
-  console.warn(`Effects.promise is deprecated. Please
-    use Cmd.run (https://github.com/redux-loop/redux-loop/blob/master/docs/ApiDocs.md#cmdrunfunc-options).
-    Effects.promise will be removed in the next major version.`)
+  if (process.env.SHOW_REDUX_LOOP_WARNINGS === true) {
+    console.warn(`Effects.promise is deprecated. Please
+      use Cmd.run (https://github.com/redux-loop/redux-loop/blob/master/docs/ApiDocs.md#cmdrunfunc-options).
+      Effects.promise will be removed in the next major version.`)
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     throwInvariant(
       typeof promiseFactory === 'function',
@@ -29,9 +32,12 @@ const call = (
   resultFactory,
   ...args
 ) => {
-  console.warn(`Effects.call is deprecated. Please
-    use Cmd.run (https://github.com/redux-loop/redux-loop/blob/master/docs/ApiDocs.md#cmdrunfunc-options).
-    Effects.call will be removed in the next major version.`)
+  if (process.env.SHOW_REDUX_LOOP_WARNINGS === true) {
+    console.warn(`Effects.call is deprecated. Please
+      use Cmd.run (https://github.com/redux-loop/redux-loop/blob/master/docs/ApiDocs.md#cmdrunfunc-options).
+      Effects.call will be removed in the next major version.`)
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     throwInvariant(
       typeof resultFactory === 'function',
@@ -46,8 +52,11 @@ const call = (
 }
 
 const constant = (actionToDispatch) => {
-  console.warn(`Effects.constant is deprecated and has been renamed Cmd.action. 
-    Effects.constant will be removed in the next major version.`)
+  if (process.env.SHOW_REDUX_LOOP_WARNINGS === true) {
+    console.warn(`Effects.constant is deprecated and has been renamed Cmd.action.
+      Effects.constant will be removed in the next major version.`)
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     throwInvariant(
       typeof actionToDispatch === 'object' && actionToDispatch !== null && typeof actionToDispatch.type !== 'undefined',
@@ -58,8 +67,11 @@ const constant = (actionToDispatch) => {
 }
 
 const batch = (cmds) => {
-  console.warn(`Effects.batch is deprecated and has been renamed Cmd.batch. 
-    Effects.batch will be removed in the next major version.`)
+  if (process.env.SHOW_REDUX_LOOP_WARNINGS === true) {
+    console.warn(`Effects.batch is deprecated and has been renamed Cmd.batch.
+      Effects.batch will be removed in the next major version.`)
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     throwInvariant(
       Array.isArray(cmds) && cmds.every(isCmd),
@@ -75,8 +87,11 @@ const lift = (
   tagger,
   args
 ) => {
-  console.warn(`Effects.lift is deprecated and has been renamed Cmd.map. 
-    Effects.lift will be removed in the next major version.`)
+  if (process.env.SHOW_REDUX_LOOP_WARNINGS === true) {
+    console.warn(`Effects.lift is deprecated and has been renamed Cmd.map.
+      Effects.lift will be removed in the next major version.`)
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     throwInvariant(
       isCmd(nestedCmd),
@@ -91,7 +106,7 @@ const lift = (
 
   return Cmd.map(nestedCmd, tagger, ...args)
 }
- 
+
 
 const none = {...Cmd.none, isEffect: true}
 
